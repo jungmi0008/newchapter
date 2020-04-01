@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.newchapter.mapper.MemberMapper">
+	
+	<resultMap type="com.newchapter.domain.MemberVO" id="memberMap">
+	    <id property="m_id" 			column="m_id"/>
+	    <result property="mno" 			column="mno"/>
+	    <result property="m_id" 		column="m_id"/>
+	    <result property="m_name"   	column="m_name"/>
+	    <result property="m_email" 		column="m_email"/>
+	    <result property="m_img" 		column="m_img"/>
+	    <result property="m_pw"     	column="m_pw"/>
+	    <result property="m_birth" 		column="m_birth"/>
+	    <result property="m_phone" 		column="m_phone"/>
+	    <result property="m_address" 	column="m_address"/>
+	    <result property="m_signup_date" column="m_signup_date"/>
+	    <collection property="authList" resultMap="authMap">
+	    </collection> 
+  	</resultMap>
+  	
+  	<resultMap type="com.newchapter.domain.AuthVO" id="authMap">
+    	<result property="m_id" column="m_id"/>
+    	<result property="auth" column="auth"/>
+  	</resultMap>
+	
+	<select id="read" resultMap="memberMap">
+		SELECT mno, mem.m_id, m_name, m_email, m_img, m_pw, m_birth, m_phone,
+			   m_address, m_signup_date, enabled, auth 
+		FROM   member_tb mem LEFT OUTER JOIN authorities auth ON mem.m_id = auth.m_id 
+		WHERE  mem.m_id = #{m_id}
+	</select>
+	
+	<insert id="addCart">
+		INSERT into cart_tb (cart_no, cart_count, m_id, pno, cart_regdate)
+		VALUES (cart_seq.nextval, #{cart_count}, #{m_id}, #{pno}, sysdate)
+	</insert>
+	
+	<update id="updateCartCnt">
+		UPDATE 	cart_tb
+		SET 	cart_cnt = #{cart_cnt}
+		WHERE 	m_id=#{m_id}
+			AND pno=#{pno}
+	</update>
+	
+	<select id="getCartInfo" resultType="com.newchapter.domain.ProductVO">
+		SELECT  c.m_id, c.cart_count, p.pno, p.p_title, p.p_price, p.p_img,
+				p.p_author, p.p_price, p.p_dc_rate, p.p_publish_company, p.p_publish_date
+		FROM    product_tb p, cart_tb c
+		WHERE   c.pno = p.pno
+		    AND c.m_id = #{m_id}
+		ORDER BY c.cart_no asc
+	</select>
+</mapper>

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.newchapter.mapper.CommonMapper">
+	<sql id="bookTypeSql">
+		<choose>
+			<when test="bookType == null || bookType.equals('')">
+			
+			</when>
+			<when test="bookType.equals('allNovel')">
+				p_kind like '%'||'no'||'%' and
+			</when>
+			<when test="bookType.equals('allEssay')">
+				p_kind like '%'||'es'||'%' and
+			</when>
+			<when test="bookType.equals('allEconomy')">
+				p_kind like '%'||'ec'||'%' and
+			</when>
+			<when test="bookType.equals('allSelfDev')">
+				p_kind like '%'||'se'||'%' and
+			</when>
+			<when test="bookType.equals('allLibral')">
+				p_kind like '%'||'li'||'%' and
+			</when>
+			<when test="bookType.equals('allHistory')">
+				p_kind like '%'||'hi'||'%' and
+			</when>
+			<when test="bookType.equals('allReligion')">
+				p_kind like '%'||'re'||'%' and
+			</when>
+			<when test="bookType.equals('allPolitics')">
+				p_kind like '%'||'po'||'%' and
+			</when>
+			<when test="bookType.equals('allArt')">
+				p_kind like '%'||'ar'||'%' and
+			</when>
+			<when test="bookType.equals('allScience')">
+				p_kind like '%'||'sc'||'%' and
+			</when>
+			<when test="bookType.equals('allTechnology')">
+				p_kind like '%'||'te'||'%' and
+			</when>
+			<when test="bookType.equals('allComputer')">
+				p_kind like '%'||'co'||'%' and
+			</when>
+			<otherwise>
+				p_kind =#{bookType} and
+			</otherwise>
+			</choose>
+	</sql>
+	
+	<sql id="orderTypeSql">
+		<choose>
+			<when test="orderType == null || orderType.equals('')">
+				order by p_regdate desc
+			</when>
+			<when test="orderType == 'orderType1'.toString()">
+				order by p_regdate desc
+			</when>
+			<when test="orderType == 'orderType2'.toString()">
+				order by p_sales desc
+			</when>
+			<when test="orderType == 'orderType3'.toString()">
+				order by p_commentCnt asc
+			</when>
+		</choose>
+	</sql>
+	
+	<select id="getNewBookList" resultType="com.newchapter.domain.ProductVO">
+		<![CDATA[
+		SELECT * FROM product_tb where rownum <15 order by p_regdate
+		]]>
+	</select>
+	
+	<select id="getTotal" resultType="int">
+		<![CDATA[
+		select 	count(*) 
+		from 	product_tb 
+		where 	
+		]]>
+				<include refid="bookTypeSql"></include>
+		<![CDATA[
+				pno > 0
+		]]>
+		
+	</select>
+	
+	
+	
+	<select id="getBookList" resultType="com.newchapter.domain.ProductVO">
+		<![CDATA[
+		select 	pno, p_kind, p_title, p_price,p_author, p_publish_company,
+		 		p_publish_date, p_img, p_introduction, p_dc_rate, p_sales, p_commentCnt
+		from (
+			select /*+INDEX_DESC(tbl_board pk_product)*/
+				rownum rn, pno, p_kind, p_title, p_price,p_author, p_publish_company,
+		 		p_publish_date, p_img, p_introduction, p_dc_rate, p_sales, p_commentCnt
+			from product_tb
+			where
+		]]>
+					<include refid="bookTypeSql"></include>
+			
+		<![CDATA[ 
+					rownum <= #{pageNum} * #{amount}
+		]]>
+					<include refid="orderTypeSql"></include>		
+		<![CDATA[
+		) 
+		where rn > (#{pageNum}-1) * #{amount}
+		
+		
+		]]>
+	</select>
+	
+	<select id="getBookSingle" resultType="com.newchapter.domain.ProductVO">
+		SELECT * FROM product_tb where pno=#{pno}
+	</select>
+	
+	
+</mapper>
