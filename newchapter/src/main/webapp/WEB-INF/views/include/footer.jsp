@@ -11,28 +11,26 @@
                         </div>
                         <div class="col-md-6 col-lg-4">
                             <ul class="list-unstyled">
-                                <li><a href="#">홈</a></li>
-                                <li><a href="#">로그인</a></li>
-                                <li><a href="#">회원가입</a></li>
-                                <li><a href="#">고객센터</a></li>
-                                <li><a href="#">이벤트</a></li>
+                                <li><a href="/home">홈</a></li>
+                                <li><a href="/customLogin">로그인</a></li>
+                                <li><a href="/signUp">회원가입</a></li>
+                                <li><a href="/csCenter">고객센터</a></li>
+                                <li><a href="/event">이벤트</a></li>
                             </ul>
                         </div>
                         <div class="col-md-6 col-lg-4">
                             <ul class="list-unstyled">
-                                <li><a href="#">쇼핑하기</a></li>
-                                <li><a href="#">비문학</a></li>
-                                <li><a href="#">문학</a></li>
-                                <li><a href="#">교육도서</a></li>
+                                <li><a href="/member/cart">장바구니</a></li>
+                                <li><a href="/member/orderList">주문내역</a></li>
                             </ul>
                         </div>
                         <div class="col-md-6 col-lg-4">
                             <ul class="list-unstyled">
-                                <li><a href="#">장바구니</a></li>
-                                <li><a href="#">주문내역</a></li>
-                                <li><a href="#">회원정보</a></li>
+                                <li><a href="/shop">국내도서</a></li>
+                                <li><a href="/shop">외국도서</a></li>
                             </ul>
                         </div>
+                        
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-3">
@@ -76,14 +74,80 @@
     <script src="../../../resources/js/jquery.magnific-popup.min.js"></script>
     <script src="../../../resources/js/aos.js"></script>
     <script src="../../../resources/js/jsForShop.js"></script>
+    
+    <script>
+    /* cart.jsp */
+	/* 장바구니 상품 수량 수정 */
+	function changeCnt(bookForm) {
+		console.log(bookForm);
+		
+		var cart = {
+				m_id 		: bookForm.m_id.value,
+				cart_count 	: bookForm.bookCnt.value,
+				pno 		: bookForm.pno.value
+		}
+		
+		console.log(m_id);
+		console.log(cart_count);
+		console.log(pno);
+		
+		if(confirm("수정하시겠습니까?")) {
+			cartService.updateCnt(cart, function(result){
+				alert(result);
+			});
+		}
+	}
+    </script>
+    
     <script src="../../../resources/js/main.js"></script>
     <script src="../../../resources/js/ajaxService.js"></script>
     <script src="../../../resources/js/jsForShopSingle.js"></script>
     <script src="../../../resources/js/jsForCart.js"></script>
 	<script>
 	
-	
-	
+	$(document).ready(function () {
+		
+		$(document).ajaxSend(function(e, xhr, options) { 
+			xhr.setRequestHeader(csrfHeaderName, csrfTokenValue); 
+		});
+		
+		/* shopSingle.jsp  */
+		/* 장바구니에 상품 추가 */
+		$("#goCartBtn"). on("click", function (e) {
+			if($("#goCartForm").find("input[name='m_id']").val() == 'anonymous') {
+				alert("로그인이 필요한 기능입니다.");
+				return false;
+			}
+			
+			var cart = {
+					m_id 		: $("#goCartForm").find("input[name='m_id']").val(),
+					cart_count 	: $("#goCartForm").find("input[name='cart_count']").val(),
+					pno 		: $("#goCartForm").find("input[name='pno']").val()
+			};
+			
+			if(confirm("장바구니에 넣으시겠습니까?")) {
+				cartService.add(cart, function(result) {
+					/*window.open("askGoCart.jsp", "confirm",
+				            "toolbar=no, location=no, status=no, menubar=no, scrollbars=no, resizable=no, left=500, right=500, width=500, height=200"
+				            );*/
+					if(confirm("장바구니에 상품이 담겼습니다! 장바구니 페이지로 이동하시겠습니까?")) {
+						location.href="/member/cart";
+					} else {
+						return false;
+					}
+											
+				});
+			} else {
+				return false;
+			}
+		});
+		
+		
+		
+	    var csrfHeaderName ="${_csrf.headerName}"; 
+	    var csrfTokenValue="${_csrf.token}";
+	    
+	});
 	</script>
 	
     </body>

@@ -14,7 +14,8 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import lombok.extern.log4j.Log4j;
 
 @Log4j
-public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler{@Override
+public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler{
+	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
 		log.warn("Login Success");

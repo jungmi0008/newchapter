@@ -14,8 +14,4 @@ public interface MemberService {
 
 	public int updateCartCnt(CartVO cart);
 	
-	
-
-		
-	
 }

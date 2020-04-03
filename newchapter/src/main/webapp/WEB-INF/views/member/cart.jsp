@@ -18,7 +18,7 @@
 <div class="site-section">
     <div class="container">
         <div class="row mb-5">
-            <form class="col-md-12" method="post">
+            <form name=cartForm" class="col-md-12" method="post">
                 <div class="site-blocks-table">
                     <table class="table table-bordered">
                         <thead>
@@ -66,7 +66,7 @@
 			                                            <button class="btn btn-outline-primary js-btn-minus"
 			                                                type="button">&minus;</button>
 			                                        </div>
-			                                        <form>
+			                                        <form name="bookForm" method='post' action=''>
 			                                        	<input type="text" class="form-control text-center" value="${book.cart_count}" placeholder=""
 				                                            aria-label="Example text with button addon"
 				                                            aria-describedby="button-addon1"
@@ -116,21 +116,9 @@
             <div class="col-md-6">
                 <div class="row mb-5">
                     <div class="col-md-6">
-                        <button class="btn btn-outline-primary btn-sm btn-block">쇼핑계속하기</button>
+                        <button class="btn btn-outline-primary btn-sm btn-block" onclick="location.href='/shop'">쇼핑계속하기</button>
                     </div>
                 </div>
-                <!-- <div class="row">
-              <div class="col-md-12">
-                <label class="text-black h4" for="coupon">쿠폰</label>
-                <p>쿠폰은 1개만 적용가능합니다.</p>
-              </div>
-              <div class="col-md-8 mb-3 mb-md-0">
-                <input type="text" class="form-control py-3" id="coupon" placeholder="Coupon Code">
-              </div>
-              <div class="col-md-4">
-                <button class="btn btn-primary btn-sm">쿠폰목록 보기</button>
-              </div>
-            </div> -->
             </div>
             <div class="col-md-6 pl-5">
                 <div class="row justify-content-end">

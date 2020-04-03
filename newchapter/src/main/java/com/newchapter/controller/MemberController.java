@@ -33,14 +33,14 @@ import lombok.extern.log4j.Log4j;
 public class MemberController {
 
 	private MemberService service;
-	
+
 	@GetMapping("/member")
 	@PreAuthorize("isAuthenticated()")
 	public String home() {
-		
+
 		return "redirect:/";
 	}
-	
+
 //	@GetMapping("/cart")
 //	public void cart(HttpServletRequest request, Model model) {
 //		List<ProductVO> bookListForCart = new ArrayList<ProductVO>();
@@ -62,37 +62,39 @@ public class MemberController {
 //		}
 //		model.addAllAttributes(bookListForCart);
 //	}
-	
+
 	@GetMapping("/member/cart")
 	@PreAuthorize("isAuthenticated()")
 	public void cart(Principal principal, Model model) {
 		List<ProductVO> bookListForCart = new ArrayList<ProductVO>();
-		
+
 		String m_id = principal.getName();
 		bookListForCart = (List<ProductVO>) service.getCartInfo(m_id);
-		
+
 //		bookListForCart.forEach(book -> log.info(book));
-		
-		model.addAttribute("bookListForCart",bookListForCart);
+
+		model.addAttribute("bookListForCart", bookListForCart);
 	}
-	
-	//댓글 추가
-	@PreAuthorize("isAnonymous()")
-	@PostMapping(value = "/cart/add", consumes = "application/json", produces = {MediaType.TEXT_PLAIN_VALUE})
-	public ResponseEntity<String> addCart(@RequestBody CartVO vo){		
+
+	// 장바구니 추가
+	@PreAuthorize("isAuthenticated()")
+	@PostMapping(value = "/cart/add", consumes = "application/json", produces = { MediaType.TEXT_PLAIN_VALUE })
+	public ResponseEntity<String> addCart(@RequestBody CartVO vo) {
 		log.info("addCart시작");
-		int insertCount = service.addCart(vo);
-		return insertCount == 1
-				? new ResponseEntity<>("success", HttpStatus.OK)
+		int changeRows = service.addCart(vo);
+		return changeRows >= 1 ? new ResponseEntity<>("success", HttpStatus.OK)
 				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
+
 	
-	//댓글 추가
-	@PostMapping(value = "/cart/updateCnt", consumes = "application/json", produces = {MediaType.TEXT_PLAIN_VALUE})
-	public ResponseEntity<String> updateCartCnt(@RequestBody CartVO cart){
-		int insertCount = service.updateCartCnt(cart);
-		return insertCount == 1
-				? new ResponseEntity<>("success", HttpStatus.OK)
-						: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+	 //댓글 추가
+	@PreAuthorize("isAuthenticated()")
+	 @PostMapping(value = "/cart/updateCnt", consumes = "application/json",produces = {MediaType.TEXT_PLAIN_VALUE})
+	 public ResponseEntity<String> updateCartCnt(@RequestBody CartVO cart){ 
+		 int changeRows = service.updateCartCnt(cart);
+		 return changeRows == 1 ? 
+				 new ResponseEntity<>("success", HttpStatus.OK) : 
+				 new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
+	 
 }

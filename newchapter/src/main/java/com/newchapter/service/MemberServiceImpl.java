@@ -3,6 +3,7 @@ package com.newchapter.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.newchapter.domain.CartVO;
 import com.newchapter.domain.ProductVO;
@@ -18,10 +19,18 @@ public class MemberServiceImpl implements MemberService{
 	
 	MemberMapper mapper;
 	
+	@Transactional
 	@Override
 	public int addCart(CartVO vo) {
-		// TODO Auto-generated method stub
-		return mapper.addCart(vo);
+		//이미 장바구니에 같은 책이 있는 경우
+		int cartCnt = mapper.checkCart(vo);
+		log.info(mapper.checkCart(vo));
+		if(cartCnt == 1) {
+			log.info("이미 책이 존재");
+			return mapper.updateCartCnt(vo);
+		}
+		//해당 책이 장바구니에 처음으로 담겨지는 경우
+		return mapper.insertCart(vo);
 	}
 
 	@Override
@@ -31,8 +40,9 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public int updateCartCnt(CartVO cart) {
+	public int updateCartCnt(CartVO vo) {
 		// TODO Auto-generated method stub
-		return mapper.updateCartCnt(cart);
+		return mapper.updateCart(vo);
 	}
+
 }

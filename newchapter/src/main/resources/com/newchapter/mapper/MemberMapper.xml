@@ -33,24 +33,48 @@
 		WHERE  mem.m_id = #{m_id}
 	</select>
 	
-	<insert id="addCart">
-		INSERT into cart_tb (cart_no, cart_count, m_id, pno, cart_regdate)
+	<select id="checkCart" resultType="int">
+		select  count(*)	 
+		from 	cart_tb
+		where 	m_id	=	#{m_id} 
+			and pno		=	#{pno}
+	</select>
+	
+	<insert id="insertCart">
+		INSERT INTO cart_tb (cart_no, cart_count, m_id, pno, cart_regdate)
 		VALUES (cart_seq.nextval, #{cart_count}, #{m_id}, #{pno}, sysdate)
+		<!--머지는 리턴값이 없어서 사용하지 못함 
+			MERGE INTO CART_TB c
+			USING DUAL
+				ON (c.m_id=#{m_id} and c.pno=#{pno})
+			WHEN MATCHED THEN
+				UPDATE SET c.cart_count = c.cart_count + #{cart_count}
+			WHEN NOT MATCHED THEN
+			    INSERT (c.cart_no, c.cart_count, c.m_id, c.pno, c.cart_regdate)
+			    VALUES (cart_seq.nextval, #{cart_count}, #{m_id}, #{pno}, sysdate)
+		-->
 	</insert>
 	
 	<update id="updateCartCnt">
 		UPDATE 	cart_tb
-		SET 	cart_cnt = #{cart_cnt}
-		WHERE 	m_id=#{m_id}
-			AND pno=#{pno}
+		SET 	cart_count 	= cart_count + #{cart_count}
+		WHERE 	m_id 		= #{m_id}
+			AND pno 		= #{pno}
+	</update>
+	
+	<update id="updateCart">
+		UPDATE 	cart_tb
+		SET 	cart_count 	= #{cart_count}
+		WHERE 	m_id 		= #{m_id}
+			AND pno 		= #{pno}
 	</update>
 	
 	<select id="getCartInfo" resultType="com.newchapter.domain.ProductVO">
 		SELECT  c.m_id, c.cart_count, p.pno, p.p_title, p.p_price, p.p_img,
 				p.p_author, p.p_price, p.p_dc_rate, p.p_publish_company, p.p_publish_date
 		FROM    product_tb p, cart_tb c
-		WHERE   c.pno = p.pno
-		    AND c.m_id = #{m_id}
+		WHERE   c.pno 	= p.pno
+		    AND c.m_id 	= #{m_id}
 		ORDER BY c.cart_no asc
 	</select>
 </mapper>

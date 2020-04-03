@@ -6,7 +6,6 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 	
 	<bean id="customAccessDenied" class="com.newchapter.security.CustomAccessDeniedHandler"></bean>
-	<bean id="customLoginSuccess" class="com.newchapter.security.CustomLoginSuccessHandler"></bean>
 	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 	<bean id="customUserDetailsService" class="com.newchapter.security.CustomUserDetailsService"></bean>
 	<security:http>
@@ -14,7 +13,7 @@
 		<security:intercept-url pattern="/member" access="hasRole('ROLE_MEMBER')"/>
 		<security:intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')"/> -->
 		<security:access-denied-handler ref="customAccessDenied"/>
-		<security:form-login login-page="/customLogin" authentication-success-handler-ref="customLoginSuccess"/>
+		<security:form-login login-page="/customLogin"/>
 		<security:logout logout-url="/customLogout" invalidate-session="true"/>
 		<security:remember-me data-source-ref="dataSource" token-validity-seconds="604800"/>
 		<security:logout logout-url="/customLogout" invalidate-session="true" delete-cookies="remember-me,JSESSION_ID"/>

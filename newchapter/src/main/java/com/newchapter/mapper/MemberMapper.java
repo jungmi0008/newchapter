@@ -13,10 +13,13 @@ public interface MemberMapper {
 
 	public MemberVO read(String m_id);
 
-	public int addCart(CartVO vo);
+	public int insertCart(CartVO vo);
 
 	public List<ProductVO> getCartInfo(String m_id);
 
-	public int updateCartCnt(CartVO cart);	
-	
+	public int updateCartCnt(CartVO vo);
+
+	public int checkCart(CartVO vo);
+
+	public int updateCart(CartVO vo);
 }
