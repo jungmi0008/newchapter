@@ -76,7 +76,7 @@
 		                                </li>
 		                            </sec:authorize>
 		                            <sec:authorize access="isAnonymous()">
-                                    	<li><a href="/member/signUp">회원가입</a></li>
+                                    	<li><a href="/signUp">회원가입</a></li>
                                     </sec:authorize>
                                     <sec:authorize access="isAuthenticated()">
 	                                    <li>
@@ -111,14 +111,14 @@
                         <li class="has-children">
                             <a href="/member/myPage">마이 페이지</a>
                             <ul class="dropdown">
-                                <li><a href="/member/buyList">주문내역</a></li>
+                                <li><a href="/member/orderList">주문내역</a></li>
                                 <li><a href="/member/myComment">나의 상품평</a></li>
                                 <li><a href="/member/myQuestion">나의 상품문의</a></li>
                                 <li><a href="/member/myDetail">회원정보</a></li>
                             </ul>
                         </li>
                         <li><a href="/member/event">이벤트</a></li>
-                        <li><a href="/member/customerService">고객센터</a></li>
+                        <li><a href="/customerService">고객센터</a></li>
                     </ul>
                 </div>
             </nav>

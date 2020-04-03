@@ -117,7 +117,7 @@
 	                    <div class="item">
 	                        <div class="block-4 text-center">
 	                            <figure class="block-4-image">
-	                                <img src="<c:out value='${book.p_img}'/>" alt="<c:out value='${book.pno}'/>" class="img-fluid  ">
+	                                <a href="/shopSingle?pno=<c:out value="${book.pno}"/>"><img src="<c:out value='${book.p_img}'/>" alt="<c:out value='${book.pno}'/>" class="img-fluid"></a>
 	                            </figure>
 	                            <div class="block-4-text p-4">
 	                                <div class="font_title_div"><a href="/shopSingle/pno=<c:out value='${book.pno}'/>">${book.p_title}</a></div>

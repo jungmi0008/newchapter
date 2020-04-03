@@ -1225,7 +1225,7 @@ select {
   width: 100px;
 }
 .half-size {
-  width: 80%;
+  width: 50%;
   margin: 0px;
   float: left;
 }
@@ -1288,4 +1288,17 @@ select {
 	overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+.shopSingleSection {
+	overflow: auto;
+	min-height: 70vh;
+}
+
+.shopSingleImg {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	padding-bottom: 20px;
 }

@@ -41,28 +41,6 @@ public class MemberController {
 		return "redirect:/";
 	}
 
-//	@GetMapping("/cart")
-//	public void cart(HttpServletRequest request, Model model) {
-//		List<ProductVO> bookListForCart = new ArrayList<ProductVO>();
-//		
-//		HttpSession session = request.getSession();
-//		Enumeration<String> sessionAttr = session.getAttributeNames();
-//		
-//		while(sessionAttr.hasMoreElements()) {
-//			String sessionName = sessionAttr.nextElement().toString();
-//			if(sessionName.startsWith("bookInCart:")) {
-//				int pno = Integer.parseInt(sessionName.substring(11));
-//				ProductVO book = service.getbookSingle(pno);
-//				
-//				int cart_count = (int)session.getAttribute(sessionName.substring(11));
-//				book.setCart_count(cart_count);
-//				
-//				bookListForCart.add(book);
-//			}
-//		}
-//		model.addAllAttributes(bookListForCart);
-//	}
-
 	@GetMapping("/member/cart")
 	@PreAuthorize("isAuthenticated()")
 	public void cart(Principal principal, Model model) {
@@ -74,6 +52,42 @@ public class MemberController {
 //		bookListForCart.forEach(book -> log.info(book));
 
 		model.addAttribute("bookListForCart", bookListForCart);
+	}
+	
+	@GetMapping("/member/checkout")
+	@PreAuthorize("isAuthenticated()")
+	public String checkout() {
+		//해당 로그인 아이디의 카트 내용물 모두와 해당 아이디의 주소
+		return "member/checkout";
+	}
+	
+	@GetMapping("/member/orderList")
+	@PreAuthorize("isAuthenticated()")
+	public String orderList() {
+		return "member/orderList";
+	}
+	@GetMapping("/member/myComment")
+	@PreAuthorize("isAuthenticated()")
+	public String myComment() {
+		return "member/myComment";
+	}
+	
+	@GetMapping("/member/myDetail")
+	@PreAuthorize("isAuthenticated()")
+	public String myDetail() {
+		return "member/myDetail";
+	}
+	
+	@GetMapping("/member/myPage")
+	@PreAuthorize("isAuthenticated()")
+	public String myPage() {
+		return "member/myPage";
+	}
+	
+	@GetMapping("/member/myQuestion")
+	@PreAuthorize("isAuthenticated()")
+	public String myQuestion() {
+		return "member/myQuestion";
 	}
 
 	// 장바구니 추가

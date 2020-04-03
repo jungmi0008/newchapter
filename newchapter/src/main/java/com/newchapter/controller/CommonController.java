@@ -1,31 +1,16 @@
 package com.newchapter.controller;
 
-import java.security.Principal;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.newchapter.domain.CartVO;
 import com.newchapter.domain.Criteria;
 import com.newchapter.domain.PageDTO;
-import com.newchapter.domain.ProductVO;
 import com.newchapter.service.CommonService;
 
 import lombok.AllArgsConstructor;
@@ -68,12 +53,6 @@ public class CommonController {
 		
 	}
 	
-	/*
-	 * @GetMapping("/customLogout") public void logoutGET() {
-	 * 
-	 * log.info("custom logout"); }
-	 */
-	
 	@PostMapping("/customLogout")
 	public void logoutPost() {
 		log.info("로그아웃 처리");
@@ -94,6 +73,12 @@ public class CommonController {
 	public void shopSingle(@RequestParam("pno")int pno, Model model) {
 		log.info("쇼핑 싱글 페이지 컨트롤러");
 		model.addAttribute("bookSingle", service.getbookSingle(pno));
+	}
+	
+	@RequestMapping(value = "/signUp", method = RequestMethod.GET)
+	public String signUp() {
+		log.info("회원가입 페이지 컨트롤러");
+		return "signUp";
 	}
 	
 	

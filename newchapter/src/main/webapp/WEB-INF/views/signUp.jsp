@@ -23,23 +23,25 @@
                             <div class="col-md-12">
                                 <label for="c_email" class="text-black">아이디<span class="text-danger">*</span></label>
                                 <br>
-                                <a class="btn btn-sm half-size-btn" href="#" style="float: right;">중복확인</a>
                                 <input type="email" class="form-control half-size" id="c_email" name="c_email"
                                     placeholder="">
+                                <a class="btn btn-sm half-size-btn" href="#" style="margin-left:20px;">중복확인</a>
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-md-12">
                                 <label for="c_subject" class="text-black">이메일</label><span
                                     class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="c_subject" name="c_subject">
+                                <br>
+                                <input type="text" class="form-control half-size" id="c_subject" name="c_subject">
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-md-12">
                                 <label for="c_subject" class="text-black">이름</label><span
                                     class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="c_subject" name="c_subject">
+                                <br>
+                                <input type="text" class="form-control half-size" id="c_subject" name="c_subject">
                             </div>
                         </div>
 
@@ -47,14 +49,16 @@
                             <div class="col-md-12">
                                 <label for="c_subject" class="text-black">비밀번호</label><span
                                     class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="c_subject" name="c_subject">
+                                <br>
+                                <input type="text" class="form-control half-size" id="c_subject" name="c_subject">
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-md-12">
                                 <label for="c_subject" class="text-black">비밀번호 확인</label><span
                                     class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="c_subject" name="c_subject">
+                                <br>
+                                <input type="text" class="form-control half-size" id="c_subject" name="c_subject">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -82,7 +86,7 @@
                                 <br>
                                 <input type="text" class="form-control half-size" id="c_subject" name="c_subject"
                                     value="서울시 강남구">
-                                <a class="btn btn-sm half-size-btn" href="#" style="float: right;">주소검색</a>
+                                <a class="btn btn-sm half-size-btn" href="#" style="margin-left: 20px;">주소검색</a>
                             </div>
                         </div>
                         <div class="form-group row">

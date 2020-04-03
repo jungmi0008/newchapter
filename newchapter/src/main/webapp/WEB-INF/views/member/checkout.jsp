@@ -4,8 +4,8 @@
 <div class="bg-light py-3">
     <div class="container">
         <div class="row">
-	            <a href="home.jsp">홈</a><span class="mx-2 mb-0">/</span>
-	            	<a href="myPage.jsp">마이페이지</a><span class="mx-2 mb-0">/</span>
+	            <a href="/">홈</a><span class="mx-2 mb-0">/</span>
+	            	<a href="/member/myPage">마이페이지</a><span class="mx-2 mb-0">/</span>
 	            	<strong class="text-black">주문하기</strong>
         </div>
     </div>

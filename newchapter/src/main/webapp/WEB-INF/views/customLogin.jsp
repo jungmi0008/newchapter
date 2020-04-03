@@ -58,7 +58,7 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-lg-12">
-                                <button class="btn btn-primary btn-lg btn-block">회원가입하러 가기</button>
+                                <a class="btn btn-primary btn-lg btn-block" href='/signUp'>회원가입하러 가기</a>
                             </div>
                         </div>
                     </div>
