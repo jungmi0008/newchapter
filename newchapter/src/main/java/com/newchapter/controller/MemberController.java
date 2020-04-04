@@ -101,11 +101,12 @@ public class MemberController {
 	}
 
 	
-	 //댓글 추가
+	 // 장바구니 상품개수 변경
 	@PreAuthorize("isAuthenticated()")
-	 @PostMapping(value = "/cart/updateCnt", consumes = "application/json",produces = {MediaType.TEXT_PLAIN_VALUE})
-	 public ResponseEntity<String> updateCartCnt(@RequestBody CartVO cart){ 
-		 int changeRows = service.updateCartCnt(cart);
+	 @PostMapping(value = "/cart/updateBookCnt", consumes = "application/json",produces = {MediaType.TEXT_PLAIN_VALUE})
+	 public ResponseEntity<String> updateBookCnt(@RequestBody CartVO cart){
+		
+		 int changeRows = service.updateBookCnt(cart);
 		 return changeRows == 1 ? 
 				 new ResponseEntity<>("success", HttpStatus.OK) : 
 				 new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

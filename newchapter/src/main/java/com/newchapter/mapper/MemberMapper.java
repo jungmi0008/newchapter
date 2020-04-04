@@ -21,5 +21,5 @@ public interface MemberMapper {
 
 	public int checkCart(CartVO vo);
 
-	public int updateCart(CartVO vo);
+	public int updateBookCnt(CartVO vo);
 }

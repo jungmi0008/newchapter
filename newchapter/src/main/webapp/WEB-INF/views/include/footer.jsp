@@ -74,31 +74,6 @@
     <script src="../../../resources/js/jquery.magnific-popup.min.js"></script>
     <script src="../../../resources/js/aos.js"></script>
     <script src="../../../resources/js/jsForShop.js"></script>
-    
-    <script>
-    /* cart.jsp */
-	/* 장바구니 상품 수량 수정 */
-	function changeCnt(bookForm) {
-		console.log(bookForm);
-		
-		var cart = {
-				m_id 		: bookForm.m_id.value,
-				cart_count 	: bookForm.bookCnt.value,
-				pno 		: bookForm.pno.value
-		}
-		
-		console.log(m_id);
-		console.log(cart_count);
-		console.log(pno);
-		
-		if(confirm("수정하시겠습니까?")) {
-			cartService.updateCnt(cart, function(result){
-				alert(result);
-			});
-		}
-	}
-    </script>
-    
     <script src="../../../resources/js/main.js"></script>
     <script src="../../../resources/js/ajaxService.js"></script>
     <script src="../../../resources/js/jsForShopSingle.js"></script>
@@ -106,6 +81,24 @@
 	<script>
 	
 	$(document).ready(function () {
+		
+		showTotalPrice();
+		function showTotalPrice() {
+			var cntArr 		= document.getElementsByClassName("bookCntInput");
+			var priceArr 	= document.getElementsByClassName("totalPrice");
+			var totalArr 	= document.getElementsByClassName("final_total");
+			
+			for( var i = 0; i < cntArr.length; i++ ){
+				var cnt		= cntArr[i].value;
+				var price 	= priceArr[i].innerHTML.trim();
+				var total 	= cnt * price;
+				var regexp = /\B(?=(\d{3})+(?!\d))/g;
+				var totalStr = total.toString().replace(regexp, ',');
+				console.log(totalStr);
+				totalArr[i].innerHTML = totalStr+"원";
+				
+			}
+		}
 		
 		$(document).ajaxSend(function(e, xhr, options) { 
 			xhr.setRequestHeader(csrfHeaderName, csrfTokenValue); 
@@ -141,6 +134,60 @@
 				return false;
 			}
 		});
+
+		/* cart.jsp  */
+		/* 장바구니에 상품 개수 변경 */
+		$(".minusBtn").on("click", function(e) {
+			var cnt = $(this).parent().next().val();
+			var pno = $(this).parent().parent().find("input[name='pno']").val();
+			var m_id = $("#m_idInput").val();
+			
+			var cart = {
+					cart_count : cnt,
+					pno : pno,
+					m_id : m_id
+			};
+			
+			cartService.updateBookCnt(cart, function(result) {
+				console.log(result);
+				showTotalPrice();
+			});
+		});
+		
+		$(".plusBtn").on("click", function(e) {
+			var cnt = $(this).parent().prev().val();
+			var pno = $(this).parent().parent().find("input[name='pno']").val();
+			var m_id = $("#m_idInput").val();
+			
+			
+			var cart = {
+					cart_count : cnt,
+					pno : pno,
+					m_id : m_id
+			};
+			
+			cartService.updateBookCnt(cart, function(result) {
+				console.log(result);
+				showTotalPrice();
+			}); 
+		});
+		
+		$(".bookCntInput").on("blur", function() {
+			var cnt	 = $(this).val();
+			var pno  = $(this).parent().find("input[name='pno']").val();
+			var m_id = $("#m_idInput").val();
+			
+			var cart = {
+					cart_count : cnt,
+					pno : pno,
+					m_id : m_id
+			};
+			
+			cartService.updateBookCnt(cart, function(result) {
+				console.log(result);
+				showTotalPrice();
+			});
+		}) ;
 		
 		
 		

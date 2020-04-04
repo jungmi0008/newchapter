@@ -40,9 +40,9 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public int updateCartCnt(CartVO vo) {
+	public int updateBookCnt(CartVO vo) {
 		// TODO Auto-generated method stub
-		return mapper.updateCart(vo);
+		return mapper.updateBookCnt(vo);
 	}
 
 }

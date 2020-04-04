@@ -1,8 +1,6 @@
 /**
  * 
  */
-
-console.log("carService");
 var cartService = (function () {
 	
 	function add(cart, callback, error) {
@@ -25,10 +23,10 @@ var cartService = (function () {
 		})
 	}
 	
-	function updateCnt(cart, callback, error) {
+	function updateBookCnt(cart, callback, error) {
 		$.ajax({
 			type : 'post',
-			url : '/cart/updateCnt',
+			url : '/cart/updateBookCnt',
 			data : JSON.stringify(cart),
 			contentType : "application/json; charset=utf-8",
 			success : function(result, status, xhr) {
@@ -46,6 +44,6 @@ var cartService = (function () {
 	
 	 return {
 	        add: add,
-	        updateCnt : updateCnt
+	        updateBookCnt : updateBookCnt
 	 };
 })();

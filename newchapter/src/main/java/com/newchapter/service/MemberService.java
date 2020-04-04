@@ -12,6 +12,6 @@ public interface MemberService {
 
 	public List<ProductVO> getCartInfo(String m_id);
 
-	public int updateCartCnt(CartVO cart);
+	public int updateBookCnt(CartVO cart);
 	
 }
