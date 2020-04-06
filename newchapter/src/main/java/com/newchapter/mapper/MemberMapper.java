@@ -22,4 +22,6 @@ public interface MemberMapper {
 	public int checkCart(CartVO vo);
 
 	public int updateBookCnt(CartVO vo);
+
+	public int deleteBook(CartVO cart);
 }

@@ -42,8 +42,28 @@ var cartService = (function () {
 		});
 	}
 	
+	function deleteBook(cart, callback, error) {
+		$.ajax({
+			type : 'post',
+			url : '/cart/deleteBook',
+			data : JSON.stringify(cart),
+			contentType : "application/json; charset=utf-8",
+			success : function(result, status, xhr) {
+				if(callback){
+					callback(result);
+				}
+			},
+			error : function(xhr, status, er) {
+				if(error) {
+					error(er);
+				}
+			}
+		});
+	}
+	
 	 return {
 	        add: add,
-	        updateBookCnt : updateBookCnt
+	        updateBookCnt : updateBookCnt,
+	        deleteBook : deleteBook
 	 };
 })();

@@ -111,5 +111,16 @@ public class MemberController {
 				 new ResponseEntity<>("success", HttpStatus.OK) : 
 				 new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
+	
+	// 장바구니 상품개수 변경
+	@PreAuthorize("isAuthenticated()")
+	@PostMapping(value = "/cart/deleteBook", consumes = "application/json",produces = {MediaType.TEXT_PLAIN_VALUE})
+	public ResponseEntity<String> deleteBook(@RequestBody CartVO cart){
+		
+		int changeRows = service.deleteBook(cart);
+		return changeRows == 1 ? 
+				new ResponseEntity<>("success", HttpStatus.OK) : 
+					new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+	}
 	 
 }

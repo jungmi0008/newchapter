@@ -76,28 +76,42 @@
     <script src="../../../resources/js/jsForShop.js"></script>
     <script src="../../../resources/js/main.js"></script>
     <script src="../../../resources/js/ajaxService.js"></script>
-    <script src="../../../resources/js/jsForShopSingle.js"></script>
-    <script src="../../../resources/js/jsForCart.js"></script>
 	<script>
 	
 	$(document).ready(function () {
 		
-		showTotalPrice();
-		function showTotalPrice() {
+		/* 각 제품의 최종가격과 전체 결제 금액 */
+		showFinalPrice();
+		function showFinalPrice() {
 			var cntArr 		= document.getElementsByClassName("bookCntInput");
-			var priceArr 	= document.getElementsByClassName("totalPrice");
-			var totalArr 	= document.getElementsByClassName("final_total");
+			var priceArr 	= document.getElementsByClassName("discounted_price");
 			
-			for( var i = 0; i < cntArr.length; i++ ){
+			var finalArr 	= document.getElementsByClassName("final_price");
+			
+			var totalP = 0;
+			
+			for(var i = 0; i < cntArr.length; i++){
 				var cnt		= cntArr[i].value;
 				var price 	= priceArr[i].innerHTML.trim();
-				var total 	= cnt * price;
-				var regexp = /\B(?=(\d{3})+(?!\d))/g;
-				var totalStr = total.toString().replace(regexp, ',');
-				console.log(totalStr);
-				totalArr[i].innerHTML = totalStr+"원";
+				var finalP 	= cnt * price;/* 각 제품의 최종가격(할인가 * 개수) */
 				
+				var regexp = /\B(?=(\d{3})+(?!\d))/g;/* 1000자리 표시 */
+				var finalStr = finalP.toString().replace(regexp, ',');
+				
+				finalArr[i].innerHTML = finalStr+"원";
+				
+				totalP += finalP;
 			}
+			
+			var total_price = document.getElementById("total_price");
+			
+			
+			total_price.innerHTML = totalP.toString().replace(regexp, ',')+"원";
+			
+			
+			final_totalP = totalP + 2500;
+			var final_total_price = document.getElementById("final_total_price");
+			final_total_price.innerHTML = final_totalP.toString().replace(regexp, ',')+"원";
 		}
 		
 		$(document).ajaxSend(function(e, xhr, options) { 
@@ -142,6 +156,12 @@
 			var pno = $(this).parent().parent().find("input[name='pno']").val();
 			var m_id = $("#m_idInput").val();
 			
+			if(cnt == 0) {
+				alert("주문 가능 수량은 최소 1개입니다.");
+				$(this).parent().next().val(1);
+				return false;
+			}
+			
 			var cart = {
 					cart_count : cnt,
 					pno : pno,
@@ -150,7 +170,7 @@
 			
 			cartService.updateBookCnt(cart, function(result) {
 				console.log(result);
-				showTotalPrice();
+				showFinalPrice();
 			});
 		});
 		
@@ -168,7 +188,7 @@
 			
 			cartService.updateBookCnt(cart, function(result) {
 				console.log(result);
-				showTotalPrice();
+				showFinalPrice();
 			}); 
 		});
 		
@@ -176,6 +196,12 @@
 			var cnt	 = $(this).val();
 			var pno  = $(this).parent().find("input[name='pno']").val();
 			var m_id = $("#m_idInput").val();
+			
+			if(cnt == 0) {
+				alert("주문 가능 수량은 최소 1개입니다.");
+				$(this).val(1);
+				return false;
+			}
 			
 			var cart = {
 					cart_count : cnt,
@@ -185,11 +211,26 @@
 			
 			cartService.updateBookCnt(cart, function(result) {
 				console.log(result);
-				showTotalPrice();
+				showFinalPrice();
 			});
 		}) ;
 		
-		
+		/* 장바구니 제품 삭제 */
+		$(".deleteBtn").on("click", function(e) {
+			e.preventDefault();
+			var pno = $(this).parent().prev().prev().find("input[name='pno']").val();
+			var m_id = $("#m_idInput").val();
+			
+			var cart = {
+					pno : pno,
+					m_id : m_id
+			};
+			
+			cartService.deleteBook(cart, function(result) {
+				console.log(result);
+				window.location.reload();
+			});
+		});
 		
 	    var csrfHeaderName ="${_csrf.headerName}"; 
 	    var csrfTokenValue="${_csrf.token}";

@@ -13,5 +13,7 @@ public interface MemberService {
 	public List<ProductVO> getCartInfo(String m_id);
 
 	public int updateBookCnt(CartVO cart);
+
+	public int deleteBook(CartVO cart);
 	
 }

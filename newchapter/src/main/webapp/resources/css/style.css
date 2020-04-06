@@ -918,16 +918,17 @@ a:hover {
 }
 
 .site-blocks-table thead th {
-  padding: 30px;
+  padding: 10;
   text-align: center;
   border-width: 1px !important;
   vertical-align: middle;
   color: #212529;
-  font-size: 18px;
+  font-size: 16px;
+  font-weight: 500;
 }
 
 .site-blocks-table td {
-  padding: 20px;
+  padding: 10px;
   text-align: center;
   vertical-align: middle;
   color: #212529;
@@ -1301,4 +1302,7 @@ select {
 	justify-content: center;
 	align-items: center;
 	padding-bottom: 20px;
+}
+.btn-outline-primary {
+	border-color : #ced4da;
 }

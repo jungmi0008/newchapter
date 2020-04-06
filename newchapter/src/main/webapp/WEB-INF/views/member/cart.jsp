@@ -9,7 +9,6 @@
 	<div class="container">
 		<div class="row">
 			<a href="home.jsp">홈</a><span class="mx-2 mb-0">/</span>
-			<a href="myPage.jsp">마이페이지</a><span class="mx-2 mb-0">/</span>
 			<strong class="text-black">장바구니</strong>
 		</div>
 	</div>
@@ -20,16 +19,15 @@
 		<div class="row mb-5">
 			<form name=cartForm" class="col-md-12" method="post">
 				<div class="site-blocks-table">
-					<table class="table table-bordered">
+					<table class="table">
 						<thead>
 							<tr>
-								<th class="checkbox"><input type="checkbox" name="allChecked" value="selectAll"></th>
 								<th class="product-thumbnail">상품</th>
 								<th class="product-name">상품명</th>
 								<th class="product-price">가격</th>
 								<th class="product-quantity">수량</th>
 								<th class="product-total">금액</th>
-								<th class="product-remove">상품삭제</th>
+								<th class="product-remove">삭제하기</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -41,16 +39,13 @@
 								<c:when test="${!empty bookListForCart}">
 									<c:forEach var="book" items="${bookListForCart}">
 										<tr class="oneTr">
-											<td class="checkbox">
-												<input type="checkbox" value="${book.pno}">
-											</td>
 											<td class="product-thumbnail">
 												<a href="/shopSingle?pno=<c:out value="${book.pno}" />"><img
 													src="${book.p_img}" alt="${book.p_img}" class="img-fluid"></a>
 											</td>
 											<td class="product-name">
-												<h2 class="h5 text-black">${book.p_title}</h2>
-												<p>${book.p_author} | ${book.p_publish_company} | ${book.p_publish_date}
+												<p class="text-black">${book.p_title}</p>
+												<p style="color:#8c92a0;">${book.p_author} | ${book.p_publish_company} | ${book.p_publish_date}
 												</p>
 											</td>
 											<td>
@@ -66,7 +61,7 @@
 														var="dc_price_2" />
 													<fmt:formatNumber value="${dc_price_2}" type="currency"
 														var="final_price" />
-													<p class="totalPrice" style="display:none;"><c:out value="${dc_price_2}"/></p>
+													<p class="discounted_price" style="display:none;"><c:out value="${dc_price_2}"/></p>
 												<span class="font_price_red">
 													<c:out value="${final_price}" />
 												</span>
@@ -107,9 +102,9 @@
 											<fmt:formatNumber value="${total1}" type="number" pattern="0"
 												var="total2" />
 											<fmt:formatNumber value="${total2}" type="currency" var="final_total" /> --%>
-											<td class="final_total"></td>
+											<td class="final_price"></td>
 											
-											<td><a href="#" class="btn btn-primary btn-sm">X</a></td>
+											<td><button class="btn deleteBtn" style="background-color: white">X</button></td>
 										</tr>
 									</c:forEach>
 								</c:when>
@@ -141,7 +136,7 @@
 					<div class="col-md-7">
 						<div class="row">
 							<div class="col-md-12 text-right border-bottom mb-5">
-								<h3 class="text-black h4 text-uppercase">주문전체금액</h3>
+								<p class="text-black h5 text-uppercase">주문전체금액</p>
 							</div>
 						</div>
 						<div class="row mb-3">
@@ -149,7 +144,7 @@
 								<span class="text-black">상품금액</span>
 							</div>
 							<div class="col-md-6 text-right">
-								<strong class="text-black">0원</strong>
+								<strong class="text-black" id="total_price"></strong>
 							</div>
 						</div>
 						<div class="row mb-3">
@@ -166,7 +161,7 @@
 								<span class="text-black">전체주문금액</span>
 							</div>
 							<div class="col-md-6 text-right">
-								<strong class="text-black">2,500원</strong>
+								<strong class="text-black" id="final_total_price"></strong>
 							</div>
 						</div>
 

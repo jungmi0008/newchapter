@@ -45,4 +45,10 @@ public class MemberServiceImpl implements MemberService{
 		return mapper.updateBookCnt(vo);
 	}
 
+	@Override
+	public int deleteBook(CartVO cart) {
+		// TODO Auto-generated method stub
+		return mapper.deleteBook(cart);
+	}
+
 }

@@ -71,6 +71,14 @@
 			AND pno 		= #{pno}
 	</update>
 	
+	<!-- 장바구니에 있는 제품을 삭제 -->
+	<delete id="deleteBook">
+		DELETE 	
+		FROM 	cart_tb
+		WHERE 	m_id 		= #{m_id}
+			AND pno 		= #{pno}
+	</delete>
+	
 	<select id="getCartInfo" resultType="com.newchapter.domain.ProductVO">
 		SELECT  c.m_id, c.cart_count, p.pno, p.p_title, p.p_price, p.p_img,
 				p.p_author, p.p_price, p.p_dc_rate, p.p_publish_company, p.p_publish_date
