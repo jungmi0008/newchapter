@@ -22,8 +22,7 @@
 					<table class="table">
 						<thead>
 							<tr>
-								<th class="product-thumbnail">상품</th>
-								<th class="product-name">상품명</th>
+								<th class="product-name" colspan="2">상품</th>
 								<th class="product-price">가격</th>
 								<th class="product-quantity">수량</th>
 								<th class="product-total">금액</th>
@@ -74,7 +73,6 @@
 											<td>
 												<div class="input-group mb-3" style="max-width: 120px;">
 													
-													
 													<input type="hidden" name="pno" value="${book.pno}">
 													
 													<div class="input-group-prepend">
@@ -94,14 +92,6 @@
 
 											</td>
 											
-											<%-- <c:set var="cart_count" value="${book.cart_count}" />
-											<c:set value="${book.p_price*(1-book.p_dc_rate*0.01)}" var="dc_price_1" />
-											<fmt:formatNumber value="${dc_price_1}" type="number" pattern="0"
-												var="dc_price_2" />
-											<c:set var="total1" value="${dc_price_1 * cart_count }" />
-											<fmt:formatNumber value="${total1}" type="number" pattern="0"
-												var="total2" />
-											<fmt:formatNumber value="${total2}" type="currency" var="final_total" /> --%>
 											<td class="final_price"></td>
 											
 											<td><button class="btn deleteBtn" style="background-color: white">X</button></td>

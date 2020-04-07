@@ -1306,3 +1306,10 @@ select {
 .btn-outline-primary {
 	border-color : #ced4da;
 }
+.phoneNum {
+	float: left;
+	margin-right: 20px;
+}
+.dash {
+	padding-top: 10px;
+}
