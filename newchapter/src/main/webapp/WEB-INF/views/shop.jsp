@@ -56,7 +56,7 @@
 	                                <div class="font_title_div2"><a href="/shopSingle/pno=<c:out value="${book.pno }"/>">${book.p_title}</a></div>
 	                                <p class="font_weight authorInfo">${book.p_author}</p>
 	                                <p class="font_weight">
-		                                <span>
+		                                <span class="original_price_span">
 		                                	<fmt:formatNumber value="${book.p_price}" type="currency" var="price"/>
 		                                	<c:out value="${price}"/>
 		                                </span>

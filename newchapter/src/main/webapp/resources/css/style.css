@@ -88,7 +88,7 @@ a:hover {
   padding: 10px 20px !important;
 }
 
-.btn.btn-primary {
+.btn .btn-primary {
   font-size: 17px;
   font-weight: 300;
   letter-spacing: .2em;
@@ -1312,4 +1312,11 @@ select {
 }
 .dash {
 	padding-top: 10px;
+}
+.original_price_span {
+	text-decoration: line-through;
+	color: black;
+}
+#goCartBtn {
+	color: white;
 }

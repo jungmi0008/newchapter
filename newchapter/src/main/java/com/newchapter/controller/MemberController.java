@@ -41,6 +41,8 @@ public class MemberController {
 		return "redirect:/";
 	}
 
+	//===============================================================
+	//장바구니 관련 컨트롤러
 	@GetMapping("/member/cart")
 	@PreAuthorize("isAuthenticated()")
 	public void cart(Principal principal, Model model) {
@@ -49,47 +51,9 @@ public class MemberController {
 		String m_id = principal.getName();
 		bookListForCart = (List<ProductVO>) service.getCartInfo(m_id);
 
-//		bookListForCart.forEach(book -> log.info(book));
-
 		model.addAttribute("bookListForCart", bookListForCart);
 	}
 	
-	@GetMapping("/member/checkout")
-	@PreAuthorize("isAuthenticated()")
-	public String checkout() {
-		//해당 로그인 아이디의 카트 내용물 모두와 해당 아이디의 주소
-		return "member/checkout";
-	}
-	
-	@GetMapping("/member/orderList")
-	@PreAuthorize("isAuthenticated()")
-	public String orderList() {
-		return "member/orderList";
-	}
-	@GetMapping("/member/myComment")
-	@PreAuthorize("isAuthenticated()")
-	public String myComment() {
-		return "member/myComment";
-	}
-	
-	@GetMapping("/member/myDetail")
-	@PreAuthorize("isAuthenticated()")
-	public String myDetail() {
-		return "member/myDetail";
-	}
-	
-	@GetMapping("/member/myPage")
-	@PreAuthorize("isAuthenticated()")
-	public String myPage() {
-		return "member/myPage";
-	}
-	
-	@GetMapping("/member/myQuestion")
-	@PreAuthorize("isAuthenticated()")
-	public String myQuestion() {
-		return "member/myQuestion";
-	}
-
 	// 장바구니 추가
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping(value = "/cart/add", consumes = "application/json", produces = { MediaType.TEXT_PLAIN_VALUE })
@@ -122,5 +86,53 @@ public class MemberController {
 				new ResponseEntity<>("success", HttpStatus.OK) : 
 					new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
-	 
+	
+	//===============================================================
+	
+	
+	@GetMapping("/member/checkout")
+	@PreAuthorize("isAuthenticated()")
+	public String checkout(Principal principal, Model model) {
+		//해당 로그인 아이디의 카트 내용물 모두와 해당 아이디의 주소가
+		List<ProductVO> bookListForCheckout = new ArrayList<ProductVO>();
+
+		String m_id = principal.getName();
+		bookListForCheckout = (List<ProductVO>) service.getCartInfo(m_id);
+
+		model.addAttribute("bookListForCheckout", bookListForCheckout);
+
+		
+		return "member/checkout";
+	}
+	
+	@GetMapping("/member/orderList")
+	@PreAuthorize("isAuthenticated()")
+	public String orderList() {
+		return "member/orderList";
+	}
+	@GetMapping("/member/myComment")
+	@PreAuthorize("isAuthenticated()")
+	public String myComment() {
+		return "member/myComment";
+	}
+	
+	@GetMapping("/member/myDetail")
+	@PreAuthorize("isAuthenticated()")
+	public String myDetail() {
+		return "member/myDetail";
+	}
+	
+	@GetMapping("/member/myPage")
+	@PreAuthorize("isAuthenticated()")
+	public String myPage() {
+		return "member/myPage";
+	}
+	
+	@GetMapping("/member/myQuestion")
+	@PreAuthorize("isAuthenticated()")
+	public String myQuestion() {
+		return "member/myQuestion";
+	}
+
+
 }

@@ -25,7 +25,7 @@
 				<h2 class="text-black">${book.p_title}</h2>
 				<p style="color: #8c92a0;">${book.p_author} | ${book.p_publish_company} | ${book.p_publish_date}</p>
 				<p class="font_weight">
-					<span>
+					<span class="original_price_span">
 						<fmt:formatNumber value="${book.p_price}" type="currency" var="price" />
 						<c:out value="${price}" />
 					</span>
@@ -280,3 +280,47 @@
 			</div>
 		</div>
 		<jsp:include page="include/footer.jsp"></jsp:include>
+		<script>
+	
+	$(document).ready(function () {
+		$(document).ajaxSend(function(e, xhr, options) { 
+			xhr.setRequestHeader(csrfHeaderName, csrfTokenValue); 
+		});
+		
+		/* shopSingle.jsp  */
+		/* 장바구니에 상품 추가 */
+		$("#goCartBtn"). on("click", function (e) {
+			if($("#goCartForm").find("input[name='m_id']").val() == 'anonymous') {
+				alert("로그인이 필요한 기능입니다.");
+				return false;
+			}
+			
+			var cart = {
+					m_id 		: $("#goCartForm").find("input[name='m_id']").val(),
+					cart_count 	: $("#goCartForm").find("input[name='cart_count']").val(),
+					pno 		: $("#goCartForm").find("input[name='pno']").val()
+			};
+			
+			if(confirm("장바구니에 넣으시겠습니까?")) {
+				cartService.add(cart, function(result) {
+					/*window.open("askGoCart.jsp", "confirm",
+				            "toolbar=no, location=no, status=no, menubar=no, scrollbars=no, resizable=no, left=500, right=500, width=500, height=200"
+				            );*/
+					if(confirm("장바구니에 상품이 담겼습니다! 장바구니 페이지로 이동하시겠습니까?")) {
+						location.href="/member/cart";
+					} else {
+						return false;
+					}
+											
+				});
+			} else {
+				return false;
+			}
+		});
+
+	    var csrfHeaderName ="${_csrf.headerName}"; 
+	    var csrfTokenValue="${_csrf.token}";
+	    
+	});
+	</script>
+		
