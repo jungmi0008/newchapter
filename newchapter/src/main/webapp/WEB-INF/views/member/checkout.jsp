@@ -15,23 +15,22 @@
 
 <div class="site-section">
     <div class="container">
-        <!-- <div class="row mb-5">
-            <div class="col-md-12">
-                <div class="border p-4 rounded" role="alert">
-                    Returning customer? <a href="#">Click here</a> to login
-                </div>
-            </div>
-        </div> -->
         <h2 class="h3 mb-3 text-black">주문자 정보</h2>
         <div class="row">
+        
+        <form name="check_out_Form" method="post">
             <div class="col-md-6 mb-5 mb-md-0">
-                
                 <div class="p-3 p-lg-5">
                     <div class="form-group row">
                         <div class="col-md-6">
                             <label for="c_fname" class="text-black">이름<span
                                     class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="c_fname" name="c_fname">
+                            <!-- <input type="text" class="form-control" id="c_fname" name="c_fname"> -->
+                            
+                            <sec:authentication property='principal' var='pinfo' />
+							<sec:authorize access="isAuthenticated()">	
+								<input type="text" class="form-control" name="o_name" value='${pinfo.m_name}'>
+							</sec:authorize>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -39,41 +38,66 @@
                     		<label class="text-black">배송지<span class="text-danger">*</span></label>
                     	</div>
                     	<div class="col-md-6 col-sm-6">
-                    		<input type="text" id="sample6_postcode" class="form-control" style="margin-right: 20px;" placeholder="우편번호">
+	                    	<sec:authorize access="isAuthenticated()">
+	                    		<input type="text" id="sample6_postcode" class="form-control" style="margin-right: 20px;" 
+	                    			   name="o_postcode" placeholder="우편번호" value="${pinfo.m_postcode}">
+	                    	</sec:authorize>
                     	</div>
                     	<div class="col-md-6 col-sm-6">
-                    		<input class="btn btn-primary btn-sm" type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
+                    		<button class="btn btn-primary btn-sm" onclick="sample6_execDaumPostcode()">우편번호 찾기</button>
                     	</div>
                     </div>
                      <div class="form-group row">
                     	<div class="col-md-12">
-                    		<input type="text" class="form-control" id="sample6_address" placeholder="주소">
+	                    	<sec:authorize access="isAuthenticated()">
+	                    		<input type="text" class="form-control" id="sample6_address" name="o_address"
+	                    		       placeholder="주소" value="${pinfo.m_address}">
+	                    	</sec:authorize>
                     	</div>
                     </div>
                      <div class="form-group row">
                     	<div class="col-md-12">
-                    		<input type="text" class="form-control" id="sample6_detailAddress" placeholder="상세주소">
+	                    	<sec:authorize access="isAuthenticated()">
+	                    		<input type="text" class="form-control" id="sample6_detailAddress" name="o_detail_ad" 
+	                    			   placeholder="상세주소" value="${pinfo.m_detail_ad}">
+	                    	</sec:authorize>
                     	</div>
                     </div>
                     <div class="form-group row">
                     	<div class="col-md-12">
-                    		<input type="text" class="form-control" id="sample6_extraAddress" placeholder="참고항목">
+                    		<sec:authorize access="isAuthenticated()">
+                    			<input type="text" class="form-control" id="sample6_extraAddress"  name="o_extra_ad" 
+                    				   placeholder="참고항목" value="${pinfo.m_extra_ad}">
+                    		</sec:authorize>
                     	</div>
                     </div>
                     <div class="form-group row">
                         <div class="col-md-12">
 	                        <label for="c_phone" class="text-black">연락처 <span class="text-danger">*</span></label>
 	                        <div>
-		                        <select id="c_country" class="form-control col-md-2 phoneNum">
-		                            <option value="010">010</option>
-		                            <option value="011">011</option>
-		                            <option value="016">016</option>
-		                            <option value="017">017</option>
-		                            <option value="018">018</option>
-		                            <option value="019">019</option>
+	                        <sec:authorize access="isAuthenticated()">
+	                        	<p style="display: none;" id="phone1_p">${pinfo.m_phone1}</p>
+	                        </sec:authorize>
+		                        <select id="c_country" class="form-control col-md-2 phoneNum" name="o_phone1">
+		                            <option id="op_010" value="010">010</option>
+		                            <option id="op_011" value="011">011</option>
+		                            <option id="op_016" value="016">016</option>
+		                            <option id="op_017" value="017">017</option>
+		                            <option id="op_018" value="018">018</option>
+		                            <option id="op_019" value="019">019</option>
 		                        </select>
-		                        <span class="phoneNum dash">-</span><input class="form-control col-md-2 phoneNum" type="text" name="">
-		                        <span class="phoneNum dash">-</span><input class="form-control col-md-2 phoneNum" type="text" name="">
+		                        
+		                        <span class="phoneNum dash">-</span>
+		                        <sec:authorize access="isAuthenticated()">
+		                        	<input class="form-control col-md-2 phoneNum" type="text" name="o_phone2"
+		                        		   value="${pinfo.m_phone2}">
+		                        </sec:authorize>
+		                        
+		                        <span class="phoneNum dash">-</span>
+		                        <sec:authorize access="isAuthenticated()">
+		                        	<input class="form-control col-md-2 phoneNum" type="text" name="o_phone3"
+		                        		   value="${pinfo.m_phone3}">
+		                        </sec:authorize>
 	                        </div>
                         </div>
                     </div>
@@ -81,7 +105,7 @@
 
                     <div class="form-group row">
                         <div class="col-md-12">
-                            <select id="c_msg" class="form-control">
+                            <select id="c_msg" class="form-control" name="o_msg">
 		                            <option value="msg0">배송시 요청사항(선택사항)</option>
 		                            <option value="msg1">부재시 경비실에 맡겨주세요.</option>
 		                            <option value="msg2">배송전 연락바랍니다.</option>
@@ -96,9 +120,9 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div><!-- end of <div class="col-md-6 mb-5 mb-md-0"> -->
+            
             <div class="col-md-6">
-
                 <!-- <div class="row mb-5">
                     <div class="col-md-12">
                         <h2 class="h3 mb-3 text-black">Coupon Code</h2>
@@ -199,14 +223,15 @@
                     </div>
                 </div>
 	
-            </div>
+            </div><!-- end of <div class="col-md-6"> -->
+            </form>
         </div>
-        <!-- </form> -->
     </div>
 </div>
 <jsp:include page="../include/footer.jsp"></jsp:include>
 <script>
 $(document).ready(function() {
+	/* 결제금액 보여주기 */
 	showFinalPrice();
 	
 	function showFinalPrice() {
@@ -233,6 +258,23 @@ $(document).ready(function() {
 		var final_totalP = totalP + 2500;
 		var final_total_price = document.getElementById("final_total_price");
 		final_total_price.innerHTML = final_totalP.toString().replace(regexp, ',')+"원";
+	}
+	
+	/* 회원 전화번호에 따른 옵션 셀렉 */
+	var phone1 = $("#phone1_p").text();
+	
+	if(phone1 == '010') {
+		$("#op_010").attr("selected", "selected");
+	} else if(phone1 == '011') {
+		$("#op_011").attr("selected", "selected");
+	} else if(phone1 == '016') {
+		$("#op_016").attr("selected", "selected");
+	} else if(phone1 == '017') {
+		$("#op_017").attr("selected", "selected");
+	} else if(phone1 == '018') {
+		$("#op_018").attr("selected", "selected");
+	} else {
+		$("#op_019").attr("selected", "selected");
 	}
 });
 </script>

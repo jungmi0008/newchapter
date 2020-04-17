@@ -10,7 +10,7 @@ import com.newchapter.domain.ProductVO;
 
 @Mapper
 public interface MemberMapper {
-
+	
 	public MemberVO read(String m_id);
 
 	public int insertCart(CartVO vo);
@@ -24,4 +24,6 @@ public interface MemberMapper {
 	public int updateBookCnt(CartVO vo);
 
 	public int deleteBook(CartVO cart);
+
+	public MemberVO getMemInfo(String m_id);
 }

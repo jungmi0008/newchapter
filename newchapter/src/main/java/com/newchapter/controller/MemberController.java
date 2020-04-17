@@ -43,6 +43,8 @@ public class MemberController {
 
 	//===============================================================
 	//장바구니 관련 컨트롤러
+	
+	//장바구니 페이지 불러오기
 	@GetMapping("/member/cart")
 	@PreAuthorize("isAuthenticated()")
 	public void cart(Principal principal, Model model) {
@@ -89,16 +91,18 @@ public class MemberController {
 	
 	//===============================================================
 	
-	
+	//주문하기 페이지 불러오기
 	@GetMapping("/member/checkout")
 	@PreAuthorize("isAuthenticated()")
 	public String checkout(Principal principal, Model model) {
 		//해당 로그인 아이디의 카트 내용물 모두와 해당 아이디의 주소가
 		List<ProductVO> bookListForCheckout = new ArrayList<ProductVO>();
-
+		MemberVO memberInfo = new MemberVO();
+		
 		String m_id = principal.getName();
 		bookListForCheckout = (List<ProductVO>) service.getCartInfo(m_id);
-
+		memberInfo = (MemberVO)service.getMemberInfo(m_id);
+		
 		model.addAttribute("bookListForCheckout", bookListForCheckout);
 
 		

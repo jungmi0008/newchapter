@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.newchapter.domain.CartVO;
+import com.newchapter.domain.MemberVO;
 import com.newchapter.domain.ProductVO;
 import com.newchapter.mapper.MemberMapper;
 
@@ -49,6 +50,13 @@ public class MemberServiceImpl implements MemberService{
 	public int deleteBook(CartVO cart) {
 		// TODO Auto-generated method stub
 		return mapper.deleteBook(cart);
+	}
+
+	
+	@Override
+	public MemberVO getMemberInfo(String m_id) {
+		// TODO Auto-generated method stub
+		return mapper.getMemInfo(m_id);
 	}
 
 }

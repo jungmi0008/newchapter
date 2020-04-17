@@ -14,8 +14,12 @@
 	    <result property="m_img" 		column="m_img"/>
 	    <result property="m_pw"     	column="m_pw"/>
 	    <result property="m_birth" 		column="m_birth"/>
-	    <result property="m_phone" 		column="m_phone"/>
+	    <result property="m_phone1" 	column="m_phone1"/>
+	    <result property="m_phone2" 	column="m_phone2"/>
+	    <result property="m_phone3" 	column="m_phone3"/>
 	    <result property="m_address" 	column="m_address"/>
+	    <result property="m_detail_ad" 	column="m_detail_ad"/>
+	    <result property="m_extra_ad" 	column="m_extra_ad"/>
 	    <result property="m_signup_date" column="m_signup_date"/>
 	    <collection property="authList" resultMap="authMap">
 	    </collection> 
@@ -27,8 +31,8 @@
   	</resultMap>
 	
 	<select id="read" resultMap="memberMap">
-		SELECT mno, mem.m_id, m_name, m_email, m_img, m_pw, m_birth, m_phone,
-			   m_address, m_signup_date, enabled, auth 
+		SELECT mno, mem.m_id, m_name, m_email, m_img, m_pw, m_birth, m_phone1, m_phone2, m_phone3,
+			   m_address,m_detail_ad, m_extra_ad, m_signup_date, enabled, auth 
 		FROM   member_tb mem LEFT OUTER JOIN authorities auth ON mem.m_id = auth.m_id 
 		WHERE  mem.m_id = #{m_id}
 	</select>
