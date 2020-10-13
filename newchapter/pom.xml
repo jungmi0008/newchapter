@@ -237,8 +237,8 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<!-- 4.7 to 4.12 -->
-			<version>4.12</version>
+			<!-- 4.7 to 4.13.1 -->
+			<version>4.13.1</version>
 			<scope>test</scope>
 		</dependency>        
 	</dependencies>
